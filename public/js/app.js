@@ -1,5 +1,3 @@
-//console.log('app.js:2 Client side javascript file is loaded!')
-
 const weatherForm = document.querySelector('form')
 const search = document.querySelector('input')
 const messageOne = document.querySelector('#message-1')
@@ -9,21 +7,7 @@ weatherForm.addEventListener('submit', (e) => {
   e.preventDefault()
   const location = search.value
 
-  // fetch('http://localhost:3000/weather?address=' + location)
-  //   .then(async (response) => {
-  //     await response.json()
-  //       .then((data) => {
-  //         if (data.error) {
-  //           console.log(data)
-  //         } else {
-  //           console.log(data.location)
-  //           console.log(data.forecast)
-  //         }
-  //       }).catch((error) => {
-  //         console.log('location error', error)
-  //       })
 
-  //   })
   messageOne.textContent = 'Loading ...';
 
   messageTwo.textContent = ''
@@ -33,7 +17,7 @@ weatherForm.addEventListener('submit', (e) => {
     })
   async function getData() {
 
-    const response = await fetch('http://localhost:3000/weather?address=' + location)
+    const response = await fetch('/weather?address=' + location)
     let weather = await response.text()
     originalWeather = weather
     let weather1 = weather

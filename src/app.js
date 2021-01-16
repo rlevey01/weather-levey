@@ -5,7 +5,10 @@ const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 //console.log(__dirname)
 //console.log(__filename)
+
 const app = express()
+const port = process.env.PORT || 3000
+
 
 // Define paths for Express config
 
@@ -50,7 +53,6 @@ app.get('/weather', (req, res) => {
       error: 'You must enter an address'
     })
   }
-  console.log('req=', req)
   const address = req.query.address
   geocode(address, (error, { latitude, longitude, location } = {}) => {
     if (error) {
@@ -58,7 +60,6 @@ app.get('/weather', (req, res) => {
     }
     forecast(latitude, longitude, (error, forecastData = {}) => {
       if (error) {
-        console.log('bb forecast ',)
         return res.send(error)
       }
       res.send({
@@ -76,7 +77,6 @@ app.get('/products', (req, res) => {
       error: 'You must as search term'
     })
   }
-  console.log(req.query.search)
   res.send({
     products: []
   })
@@ -104,6 +104,6 @@ app.get('*', (req, res) => {
 
   )
 })
-app.listen(3000, () => {
-  console.log('Server is up on port 3000')
+app.listen(port, () => {
+  console.log('Server is up on port ' + port)
 })
